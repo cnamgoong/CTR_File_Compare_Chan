@@ -6,9 +6,9 @@ Created on Aug 12, 2016
 import pandas as pd, os, numpy as np
 
 #in files
-in_CTR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-15-DEV/'
+in_CTR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
 in_CTR_file = 'out_K2/' + 'out_K2_CapFloor_CTR_preprocessed_file.csv'
-in_VAR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-15-DEV/'
+in_VAR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
 in_VAR_file = 'out_K2/' + 'out_K2_CapFloor_VAR_preprocessed_file.csv'
 
 #load data

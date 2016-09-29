@@ -18,36 +18,10 @@ def apply_map_rule(value,rulename):
         elif rulename == 'not_in_scope': return not_in_scope(value)        
         elif rulename == 'varstr_rate' : return varstr_rate(value)
         elif rulename == 'round_notional' : return round_notional(value)
-        elif rulename == 'prod_type' : return prod_type(value)
-        elif rulename == 'ctrstr_rate' : return ctrstr_rate(value)
-        elif rulename == 'placeholder' : return 'FRA' #placeholder(value)
-        elif rulename == 'name_change' : return name_change(value)
-        elif rulename == 'id_change' : return id_change(value)
-        elif rulename == 'contract_size' : return 1
-        elif rulename == 'holiday_org' : return holiday_org(value)
+        elif rulename == 'ctrstr_rate' : return ctrstr_rate (value)
         else: return 'rule not in if-else tree'
     except:
         return value
-
-def holiday_org(value):
-    val = str(value).strip()
-    print "Old Value -----> " + val
-    val = val.replace(";",",")
-    val = val.split(",")
-    hol = sorted(val)
-    hol = ';'.join(hol)
-    print "New Value -----> " + hol
-    return hol
-
-def id_change(value):
-    val = value.strip()
-    val = val.split(".")[1]
-    return ":" + val
-
-def name_change(value):
-    val = value.strip()
-    val = val.split(".")[1]
-    return val
 
 def round_notional(value):
     amount = str(value)[:-3]
@@ -63,14 +37,6 @@ def ctrstr_rate(value):
     perc = val.split(" %")[0]
     new_perc = round(perc, 6)
     return new_perc + " % ANNU"
-
-def prod_type(value):
-    val = float('FALSE')
-    return val
-
-def placeholder(value):
-    val = value + 'FRA'
-    return val
 
 def varstr_rate(value):
     val = str(value).strip()

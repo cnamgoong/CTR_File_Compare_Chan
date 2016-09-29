@@ -10,11 +10,11 @@ from Map_Rules import apply_map_rule
 bWriteReport = 1
 
 #in VAR files
-in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.08.15/'
-in_file_CapFloor = 'all/ByProduct/out_20160830_deals_BNS_CapFloor.csv' 
+in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.09.27/'
+in_file_CapFloor = 'all/ByProduct/out_20160929_deals_BNS_CapFloor.csv' 
 
 #in mapping rule files
-map_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-15-DEV/'
+map_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
 map_file = 'map/map_K2_CapFloor.csv'
 
 #out folder

@@ -1,5 +1,5 @@
 '''
-Created on Aug 30, 2016
+Created on Aug 12, 2016
 
 @author: cnamgoong
 '''
@@ -7,28 +7,26 @@ import pandas as pd, os
 from Map_Rules import apply_map_rule
 
 #in CTR files
-in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
-in_file_Cap = 'K2/K2_Cap_D_20160922_5_RiskWatch.csv'
-in_file_Floor = 'K2/K2_Floor_D_20160922_5_RiskWatch.csv'
+in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-10-PROD/'
+in_file_FXOption = 'MXNOPICS/MXNOPICS_FX_Option(OTC)_D_20160810_27_RiskWatch.csv'
 
 #in map files
 map_folder = in_folder
-map_file = 'map/map_K2_CapFloor.csv'
+map_file = 'map/map_MXNOPICS_FXOption.csv'
 
 #out files
-out_folder = in_folder + 'out_K2/'
-out_file = 'out_K2_CapFloor_CTR_preprocessed_file.csv'
+out_folder = in_folder + 'out_MXNOPICS/'
+out_file = 'out_MXNOPICS_FXOption_CTR_preprocessed_file.csv'
 
 #open in_files
-df_Cap = pd.read_csv(in_folder+in_file_Cap)
-df_Floor = pd.read_csv(in_folder+in_file_Floor)
+df_MXNOPICS = pd.read_csv(in_folder+in_file_FXOption)
 
 #Merge 2 CTR files/dataframes into 1 file/dataframe
-df_merge = pd.concat([df_Cap, df_Floor],axis=0)
+df_merge = pd.concat([df_MXNOPICS],axis=0)
 df_merge.reset_index(inplace=True,drop=True)
 
-#drop the deals with Issue Date = File Creation Date
-#df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/08/15"))]
+#df_merge = df_merge[(~df_merge['Maturity Date'].str.contains("2016/08/10")) & (~df_merge['Issue Date'].str.contains("2016/08/10"))]
+
 
 #reorder columns
 df_merge.sort_index(axis=1,inplace=True)
@@ -46,8 +44,6 @@ for i in df_map['Column Name'].index:
 
 #sort the CTR dataframe by Name
 sort_col = 'Name'
-
-df_merge['Group ID'] = df_merge['Name']
 
 #write out_files
 try: os.stat(out_folder[:-1])

@@ -7,8 +7,8 @@ import pandas as pd, os
 from Map_Rules import apply_map_rule
 
 #in CTR files
-in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-22-PROD/'
-in_file_Fra = 'K2/K2_Forward_Rate_Agreement_D_20160822_1_RiskWatch.csv'
+in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
+in_file_Fra = 'K2/K2_Forward_Rate_Agreement_D_20160922_5_RiskWatch.csv'
 
 #in map files
 map_folder = in_folder
@@ -26,7 +26,7 @@ df_merge = pd.concat([df_K2],axis=0)
 df_merge.reset_index(inplace=True,drop=True)
 
 #drop the deals with Issue Date = File Creation Date
-df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/08/22"))]
+df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/09/27"))]
 
 #reorder columns
 df_merge.sort_index(axis=1,inplace=True)
@@ -44,6 +44,7 @@ for i in df_map['Column Name'].index:
 
 #sort the CTR dataframe by Name
 sort_col = 'Name'
+
 
 #write out_files
 try: os.stat(out_folder[:-1])

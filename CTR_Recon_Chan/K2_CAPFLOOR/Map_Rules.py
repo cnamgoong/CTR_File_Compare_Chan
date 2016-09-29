@@ -19,14 +19,72 @@ def apply_map_rule(value,rulename):
         elif rulename == 'cap_frequency' : return cap_frequency(value)
         elif rulename == 'ctr_id_changer' : return ctr_id_changer(value)
         elif rulename == 'ctr_daycount_changer' : return ctr_daycount_changer(value)
+        elif rulename == 'change_datetype' : return change_datetype(value)
+        elif rulename == 'numstr' : return numstr(value)
+        elif rulename == 'numnum' : return numnum(value)
+        elif rulename == 'paylagconvention' : return paylagconvention(value)
+        elif rulename == 'holiday_org' : return holiday_org(value)
+        elif rulename == 'mode_change' : return mode_change(value)
         else: return 'rule not in if-else tree'
     except:
         return value
+
+def mode_change(value):
+    val = value.strip()
+    val = val.replace(" ","_")
+    return val
+
+
+def holiday_org(value):
+    val = str(value).strip()
+    val = val.replace(";",",")
+    print val
+    val = val.split(",")
+    hol = sorted(val)
+    hol = ';'.join(hol)
+    return hol
 
 def ctr_id_changer(value):
     val = str(value).strip()
     id = val.split(".")[1]
     return ":" + id
+
+def numstr(value):
+    val = value.strip()
+    val = int(val)
+    val = str(val)
+    return val
+
+def numnum(value):
+    val = value.strip()
+    val = int(val)
+    return val
+
+def change_datetype(value):
+    val = str(value).strip()
+    dates = val.split("-")[0]
+    year = val.split("-")[2]
+    mon = val.split("-")[1]
+    dict_case = {
+                'JAN' : '01'
+                ,'FEB' : '02'
+                ,'MAR' : '03'
+                ,'APR' : '04'
+                ,'MAY' : '05'
+                ,'JUN' : '06'
+                ,'JUL' : '07'
+                ,'AUG' : '08'
+                ,'SEP' : '09'
+                ,'OCT' : '10'
+                ,'NOV' : '11'
+                ,'DEC' : '12'
+                }
+    new_mon = dict_case.get(mon,mon)
+    new_date = int(dates)
+    new_date = str(new_date)
+    new_time = "20" + year + "/" + new_mon + "/" + new_date  
+    print new_time
+    return new_time
 
 def ctr_daycount_changer(value):
     flag = str(value).strip()
@@ -37,6 +95,9 @@ def ctr_daycount_changer(value):
                 }
     new_flag = dict_case.get(flag,flag)
     return new_flag
+
+def paylagconvention(value):
+    return "Business"
 
 def cap_frequency(value):
     flag = str(value).strip()
