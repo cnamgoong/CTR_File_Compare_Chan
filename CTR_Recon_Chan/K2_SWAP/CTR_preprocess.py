@@ -7,26 +7,32 @@ import pandas as pd, os
 from Map_Rules import apply_map_rule
 
 #in CTR files
-in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-04-DEV/'
-in_file_Fra = 'K2/K2_Forward_Rate_Agreement_D_20160804_1_RiskWatch.csv'
+in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
+in_file_cross_currency_swap = 'K2/K2_Cross_Currency_Swap_D_20160922_5_RiskWatch.csv'
+in_file_interest_rate_swap = 'K2/K2_Interest_Rate_Swap_D_20160922_5_RiskWatch.csv'
+in_file_inflation_linked_swap = 'K2/K2_Inflation_Linked_Swap_D_20160922_5_RiskWatch.csv'
+
 
 #in map files
 map_folder = in_folder
-map_file = 'map/map_K2_Fra.csv'
+map_file = 'map/map_K2_Swap.csv'
 
 #out files
 out_folder = in_folder + 'out_K2/'
-out_file = 'out_K2_Fra_CTR_preprocessed_file.csv'
+out_file = 'out_K2_Swap_CTR_preprocessed_file.csv'
 
 #open in_files
-df_K2 = pd.read_csv(in_folder+in_file_Fra)
+df_K2_cross_currency_swap = pd.read_csv(in_folder+in_file_cross_currency_swap)
+df_K2_interest_rate_swap = pd.read_csv(in_folder+in_file_interest_rate_swap)
+df_K2_inflation_linked_swap = pd.read_csv(in_folder+in_file_inflation_linked_swap)
+
 
 #Merge 2 CTR files/dataframes into 1 file/dataframe
-df_merge = pd.concat([df_K2],axis=0)
+df_merge = pd.concat([df_K2_cross_currency_swap, df_K2_interest_rate_swap, df_K2_inflation_linked_swap],axis=0)
 df_merge.reset_index(inplace=True,drop=True)
 
 #drop the deals with Issue Date = File Creation Date
-df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/08/04"))]
+#df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/09/27"))]
 
 #reorder columns
 df_merge.sort_index(axis=1,inplace=True)

@@ -10,40 +10,35 @@ from Map_Rules import apply_map_rule
 bWriteReport = 1
 
 #in VAR files
-in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.08.04/'
-in_file_Fra = 'all/ByProduct/out_20160809_deals_BNS_Fra.csv' 
+in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.09.27/'
+in_file_Fra = 'all/ByProduct/out_20160929_deals_BNS_Swap.csv' 
 
 #in mapping rule files
-map_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-04-DEV/'
-map_file = 'map/map_K2_Fra.csv'
+map_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
+map_file = 'map/map_K2_Swap.csv'
 
 #out folder
 out_folder = map_folder
-out_file_Fra_Deals =  'out_K2/' + 'out_K2_Fra_VAR_preprocessed_file.csv'
+out_file_Fra_Deals =  'out_K2/' + 'out_K2_Swap_VAR_preprocessed_file.csv'
 
 #open in_files
 df_Fra = pd.read_csv(in_folder+in_file_Fra)
 #print len(df_TRS.index)
 
 #filter 
-file_list_in_scope = ['/__bns__derivProdData__riskWatch__EQUITYFIO__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYFSO__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYILN__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYSPI__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYSPS__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYSP__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__EQUITYSSO__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNCCS__EUR__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNCCS__GBP__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNCCS__USD__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNEURSWAP__EUR__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNGBPSWAP__GBP__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__LDNINFLATION__GBP__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__NYDERIV__USD__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__NYIRSWAP__USD__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__NYOISHEDGE__USD__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__RETAIL__ALL__Sybase_K2.csv'
-                      ,'/__bns__derivProdData__riskWatch__SWAPS_BOOK__USD__Sybase_K2.csv']
+
+import csv
+with open('C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.09.27/all/file_list.csv') as f:
+    lis = [x.split() for x in f]
+cols = [x for x in zip(*lis)]
+for x in cols:
+    print (x)
+file_list_in_scope = lis
+#file_list_in_scope = ['/__bns__derivProdData__riskWatch__ABS__CAD__Sybase_K2.csv'
+#                      ,'/__bns__derivProdData__riskWatch__ADMINRES__CAD__Sybase_K2.csv'
+#                      ,'/__bns__derivProdData__riskWatch__ADMINRES__EUR__Sybase_K2.csv'
+#
+#                      ,'/__bns__derivProdData__riskWatch__SWAPS_BOOK__USD__Sybase_K2.csv']
 df_merge = df_Fra[(df_Fra.Filename.isin(file_list_in_scope))]
 df_merge.reset_index(inplace=True,drop=True)
 print len(df_merge.index)
