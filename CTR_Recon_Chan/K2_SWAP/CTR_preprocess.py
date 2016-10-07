@@ -22,17 +22,19 @@ out_folder = in_folder + 'out_K2/'
 out_file = 'out_K2_Swap_CTR_preprocessed_file.csv'
 
 #open in_files
-df_K2_cross_currency_swap = pd.read_csv(in_folder+in_file_cross_currency_swap)
-df_K2_interest_rate_swap = pd.read_csv(in_folder+in_file_interest_rate_swap)
-df_K2_inflation_linked_swap = pd.read_csv(in_folder+in_file_inflation_linked_swap)
+df_K2_cross_currency_swap = pd.read_csv(in_folder+in_file_cross_currency_swap, index_col=0)
+df_K2_interest_rate_swap = pd.read_csv(in_folder+in_file_interest_rate_swap, index_col=0)
+df_K2_inflation_linked_swap = pd.read_csv(in_folder+in_file_inflation_linked_swap, index_col=0)
 
 
 #Merge 2 CTR files/dataframes into 1 file/dataframe
 df_merge = pd.concat([df_K2_cross_currency_swap, df_K2_interest_rate_swap, df_K2_inflation_linked_swap],axis=0)
 df_merge.reset_index(inplace=True,drop=True)
 
-#drop the deals with Issue Date = File Creation Date
-#df_merge = df_merge[(~df_merge['Issue Date'].str.contains("2016/09/27"))]
+#drop the deals with already matured
+df_merge = df_merge[(~df_merge['Maturity Date'].str.contains("2016/09/27"))]
+df_merge = df_merge[(~df_merge['Maturity Date'].str.contains("2016/09/23"))]
+df_merge = df_merge[(~df_merge['Maturity Date'].str.contains("2016/09/15"))]
 
 #reorder columns
 df_merge.sort_index(axis=1,inplace=True)
@@ -50,6 +52,8 @@ for i in df_map['Column Name'].index:
 
 #sort the CTR dataframe by Name
 sort_col = 'Name'
+
+
 
 #write out_files
 try: os.stat(out_folder[:-1])

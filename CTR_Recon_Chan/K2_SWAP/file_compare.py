@@ -6,10 +6,10 @@ Created on Aug 10, 2016
 import pandas as pd, os, numpy as np
 
 #in files
-in_CTR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-04-DEV/'
-in_CTR_file = 'out_K2/' + 'out_K2_Fra_CTR_preprocessed_file.csv'
-in_VAR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-08-04-DEV/'
-in_VAR_file = 'out_K2/' + 'out_K2_Fra_VAR_preprocessed_file.csv'
+in_CTR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
+in_CTR_file = 'out_K2/' + 'out_K2_Swap_CTR_preprocessed_file.csv'
+in_VAR_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
+in_VAR_file = 'out_K2/' + 'out_K2_Swap_VAR_preprocessed_file.csv'
 
 #load data
 df_CTR = pd.read_csv(in_CTR_folder+in_CTR_file)
@@ -18,10 +18,10 @@ print len(df_CTR.columns)
 print len(df_VAR.columns)
 
 #out files
-out_file_diff = 'out_K2/' + 'out_K2_Fra_diff.csv'
-out_file_inVAR_notCTR = 'out_K2/' + 'out_K2_Fra_inVAR_notCTR.csv'
-out_file_inCTR_notVAR = 'out_K2/' + 'out_K2_Fra_inCTR_notVAR.csv'
-out_file_columns_diff = 'out_K2/' + 'out_K2_Fra_diff_columns_diff.csv'
+out_file_diff = 'out_K2/' + 'out_K2_Swap_diff.csv'
+out_file_inVAR_notCTR = 'out_K2/' + 'out_K2_Swap_inVAR_notCTR.csv'
+out_file_inCTR_notVAR = 'out_K2/' + 'out_K2_Swap_inCTR_notVAR.csv'
+out_file_columns_diff = 'out_K2/' + 'out_K2_Swap_diff_columns_diff.csv'
 
 #output missing rows
 df_diff = df_CTR[~np.in1d(df_CTR['Name'],df_VAR['Name'])]

@@ -11,7 +11,7 @@ bWriteReport = 1
 
 #in VAR files
 in_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.09.27/'
-in_file_Fra = 'all/ByProduct/out_20160929_deals_BNS_Swap.csv' 
+in_file_Swap = 'all/ByProduct/out_20160929_deals_BNS_Swap.csv' 
 
 #in mapping rule files
 map_folder = 'C:/Users/cnamgoong/Desktop/Shared/RW/CTR Files/2016-09-22-DEV/'
@@ -19,10 +19,10 @@ map_file = 'map/map_K2_Swap.csv'
 
 #out folder
 out_folder = map_folder
-out_file_Fra_Deals =  'out_K2/' + 'out_K2_Swap_VAR_preprocessed_file.csv'
+out_file_Swap_Deals =  'out_K2/' + 'out_K2_Swap_VAR_preprocessed_file.csv'
 
 #open in_files
-df_Fra = pd.read_csv(in_folder+in_file_Fra)
+df_Swap = pd.read_csv(in_folder+in_file_Swap)
 #print len(df_TRS.index)
 
 #filter 
@@ -33,16 +33,17 @@ with open('C:/Users/cnamgoong/Desktop/Shared/RW/VAR Session/market.16.09.27/all/
 cols = [x for x in zip(*lis)]
 for x in cols:
     print (x)
-file_list_in_scope = lis
+file_list_in_scope = (x)
 #file_list_in_scope = ['/__bns__derivProdData__riskWatch__ABS__CAD__Sybase_K2.csv'
 #                      ,'/__bns__derivProdData__riskWatch__ADMINRES__CAD__Sybase_K2.csv'
 #                      ,'/__bns__derivProdData__riskWatch__ADMINRES__EUR__Sybase_K2.csv'
 #
 #                      ,'/__bns__derivProdData__riskWatch__SWAPS_BOOK__USD__Sybase_K2.csv']
-df_merge = df_Fra[(df_Fra.Filename.isin(file_list_in_scope))]
+df_merge = df_Swap[(df_Swap.Filename.isin(file_list_in_scope))]
 df_merge.reset_index(inplace=True,drop=True)
 print len(df_merge.index)
 
+print df_merge['Filename']
 #reorder columns
 df_merge.sort_index(axis=1,inplace=True)
 
@@ -77,7 +78,7 @@ for i in df_map['Column Name'].index:
 df_merge.sort('Name', inplace = True)
 
 #write out_files
-df_merge.to_csv(out_folder + out_file_Fra_Deals,index=False)
+df_merge.to_csv(out_folder + out_file_Swap_Deals,index=False)
 
 print 'done.'
 print 'from ' + in_folder
